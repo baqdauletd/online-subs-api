@@ -28,16 +28,29 @@ func (r *SubsRepo) GetSubRepoById(id string) (*models.Sub, error){
 	return &sub, nil
 }
 
-func (r *SubsRepo) ListAll(userID, serviceName string) ([]models.Sub, error){
+func (r *SubsRepo) ListAllSubsRepo(userID, serviceName string) ([]models.Sub, error){
 	var subs []models.Sub
 	query := r.db
 
 	if userID != ""{
-		query = query.Where("user_id=?", 1)
+		query = query.Where("user_id=?", userID)
 	}
 	if serviceName != ""{
-		query = query.Where("service_name=?", 1)
+		query = query.Where("service_name=?", serviceName)
 	}
 
-	
+	if err := query.Find(&subs).Error; err != nil{
+		return nil, err
+	}
+
+	return subs, nil
 }
+
+func (r *SubsRepo) UpdateSubRepo(sub *models.Sub) error{
+	return r.db.Save(sub).Error
+}
+
+func (r *SubsRepo) DeleteSubRepo(id string) error{
+	return r.db.Delete(&models.Sub{}, "id=?", id).Error
+}
+
