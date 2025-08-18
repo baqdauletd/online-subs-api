@@ -1,0 +1,12 @@
+INFO: 2025/08/18 15:35:39 subs.go:78: ListAllSubsHandler Called
+INFO: 2025/08/18 15:35:39 subs.go:93: Subs Listed successfully
+INFO: 2025/08/18 15:36:08 subs.go:78: ListAllSubsHandler Called
+INFO: 2025/08/18 15:36:08 subs.go:93: Subs Listed successfully
+INFO: 2025/08/18 15:46:14 subs.go:78: ListAllSubsHandler Called
+INFO: 2025/08/18 15:46:14 subs.go:93: Subs Listed successfully
+INFO: 2025/08/18 15:46:45 subs.go:28: CreateSubHandler called
+ERROR: 2025/08/18 15:46:45 subs.go:50: Invalid user_id format: 0601fee-2bf1-4721-ae6f-7636e79a0bbb
+ERROR: 2025/08/18 15:46:45 subs.go:44: Failed to create subscription: invalid user_id format
+INFO: 2025/08/18 15:47:29 /home/bakd/Desktop/my-projects/online-subs-api/handlers/subs.go:28: CreateSubHandler called
+ERROR: 2025/08/18 15:47:29 subs.go:50: Invalid user_id format: 0601fee-2bf1-4721-ae6f-7636e79a0bbb
+ERROR: 2025/08/18 15:47:29 subs.go:44: Failed to create subscription: invalid user_id format

@@ -8,9 +8,11 @@ import (
 	"online-subs-api/repo"
 	"online-subs-api/router"
 	"online-subs-api/services"
+	"online-subs-api/utils"
 )
 
 func main(){
+	utils.InitLogger()
 	db := repo.Connect()
 	db.AutoMigrate(&models.Sub{})
 
