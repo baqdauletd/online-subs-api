@@ -24,6 +24,16 @@ func NewSubHandler(subsService *services.SubsService) *SubsHandler{
 	return &SubsHandler{subsService: subsService}
 }
 
+// CreateSubHandler godoc
+// @Summary Create a new subscription
+// @Description Create a subscription for a user
+// @Tags subscriptions
+// @Accept json
+// @Produce json
+// @Param sub body JSONSubRequest true "Subscription Request"
+// @Success 201 {object} models.Sub
+// @Failure 400 {string} string "invalid request body or failed to create"
+// @Router /subs/create [post]
 func (h *SubsHandler) CreateSubHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("CreateSubHandler called")
 	
@@ -52,6 +62,17 @@ func (h *SubsHandler) CreateSubHandler(w http.ResponseWriter, r *http.Request){
 	json.NewEncoder(w).Encode(sub)
 }
 
+
+// GetSubHandlerByID godoc
+// @Summary Get subscription by ID
+// @Description Retrieve a subscription using its ID
+// @Tags subscriptions
+// @Produce json
+// @Param id query string true "Subscription ID"
+// @Success 200 {object} models.Sub
+// @Failure 400 {string} string "missing or invalid id"
+// @Failure 404 {string} string "subscription not found"
+// @Router /subs/getById [get]
 func (h *SubsHandler) GetSubHandlerByID(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("GetSubHandlerByID called")
 	id := r.URL.Query().Get("id")
@@ -74,6 +95,17 @@ func (h *SubsHandler) GetSubHandlerByID(w http.ResponseWriter, r *http.Request){
 	json.NewEncoder(w).Encode(sub)
 }
 
+// ListAllSubsHandler godoc
+// @Summary List all subscriptions
+// @Description Get all subscriptions for a user or service
+// @Tags subscriptions
+// @Accept json
+// @Produce json
+// @Param filter body JSONSubRequest false "Filter by user_id or service_name"
+// @Success 200 {array} models.Sub
+// @Failure 400 {string} string "invalid request body"
+// @Failure 500 {string} string "failed to list subscriptions"
+// @Router /subs/listAll [get]
 func (h *SubsHandler) ListAllSubsHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("ListAllSubsHandler Called")
 	var req JSONSubRequest
@@ -95,6 +127,17 @@ func (h *SubsHandler) ListAllSubsHandler(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(subs)
 }
 
+
+// UpdateSubHandler godoc
+// @Summary Update a subscription
+// @Description Update subscription details
+// @Tags subscriptions
+// @Accept json
+// @Produce json
+// @Param sub body JSONSubRequest true "Updated Subscription"
+// @Success 200 {object} models.Sub
+// @Failure 400 {string} string "invalid request body or failed update"
+// @Router /subs/update [put]
 func (h *SubsHandler) UpdateSubHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("UpdateSubHandler Called")
 	var req JSONSubRequest
@@ -121,6 +164,17 @@ func (h *SubsHandler) UpdateSubHandler(w http.ResponseWriter, r *http.Request){
 	json.NewEncoder(w).Encode(sub)
 }
 
+
+// DeleteSubHandler godoc
+// @Summary Delete a subscription
+// @Description Delete a subscription by ID
+// @Tags subscriptions
+// @Produce json
+// @Param id query string true "Subscription ID"
+// @Success 204 {string} string "No Content"
+// @Failure 400 {string} string "missing id"
+// @Failure 404 {string} string "subscription not found"
+// @Router /subs/delete [delete]
 func (h* SubsHandler) DeleteSubHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("DeleteSubHandler called")
 	id := r.URL.Query().Get("id")

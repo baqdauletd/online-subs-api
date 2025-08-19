@@ -10,3 +10,21 @@ ERROR: 2025/08/18 15:46:45 subs.go:44: Failed to create subscription: invalid us
 INFO: 2025/08/18 15:47:29 /home/bakd/Desktop/my-projects/online-subs-api/handlers/subs.go:28: CreateSubHandler called
 ERROR: 2025/08/18 15:47:29 subs.go:50: Invalid user_id format: 0601fee-2bf1-4721-ae6f-7636e79a0bbb
 ERROR: 2025/08/18 15:47:29 subs.go:44: Failed to create subscription: invalid user_id format
+INFO: 2025/08/19 12:36:52 subs.go:78: ListAllSubsHandler Called
+INFO: 2025/08/19 12:36:52 subs.go:93: Subs Listed successfully
+INFO: 2025/08/19 12:38:13 subs.go:56: GetSubHandlerByID called
+WARNING: 2025/08/19 12:38:13 subs.go:59: Missing id parameter in request
+INFO: 2025/08/19 12:38:19 subs.go:56: GetSubHandlerByID called
+WARNING: 2025/08/19 12:38:19 subs.go:59: Missing id parameter in request
+INFO: 2025/08/19 12:38:43 subs.go:56: GetSubHandlerByID called
+WARNING: 2025/08/19 12:38:43 subs.go:59: Missing id parameter in request
+INFO: 2025/08/19 12:41:28 subs.go:56: GetSubHandlerByID called
+INFO: 2025/08/19 12:41:28 subs.go:71: Subscription retrieved successfully: &{ID:a8727a5d-893c-42e6-ba55-0dd8463ac9a2 ServiceName:Bagamol Podcast Price:200000000 UserID:60601fee-2bf1-4721-ae6f-7636e79a0bbb StartDate:2025-08-01 05:00:00 +0500 +05 EndDate:2025-09-01 05:00:00 +0500 +05}
+INFO: 2025/08/19 13:17:21 subs.go:38: CreateSubHandler called
+ERROR: 2025/08/19 13:17:21 subs.go:50: Invalid user_id format: string
+ERROR: 2025/08/19 13:17:21 subs.go:54: Failed to create subscription: invalid user_id format
+INFO: 2025/08/19 13:18:49 subs.go:38: CreateSubHandler called
+ERROR: 2025/08/19 13:18:49 subs.go:50: Invalid user_id format: 0601fee-2bf1-4721-ae6f-7636e79a0bbb
+ERROR: 2025/08/19 13:18:49 subs.go:54: Failed to create subscription: invalid user_id format
+INFO: 2025/08/19 13:18:57 subs.go:38: CreateSubHandler called
+INFO: 2025/08/19 13:18:57 subs.go:59: Subscirpition created succesfully: &{ID:9d7900f5-44c5-42ca-b914-45ec5711dfec ServiceName:Bagamol Podcast Price:200000000 UserID:60601fee-2bf1-4721-ae6f-7636e79a0bbb StartDate:2025-08-01 00:00:00 +0000 UTC EndDate:2025-08-01 00:00:00 +0000 UTC}

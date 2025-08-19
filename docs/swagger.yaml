@@ -1,0 +1,175 @@
+basePath: /
+definitions:
+  handlers.JSONSubRequest:
+    properties:
+      end_date:
+        type: string
+      price:
+        type: integer
+      service_name:
+        type: string
+      start_date:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.Sub:
+    properties:
+      end_date:
+        type: string
+      id:
+        type: string
+      price:
+        type: integer
+      service_name:
+        type: string
+      start_date:
+        type: string
+      user_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API for managing subscriptions
+  title: Online Subscriptions API
+  version: "1.0"
+paths:
+  /subs/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a subscription for a user
+      parameters:
+      - description: Subscription Request
+        in: body
+        name: sub
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.JSONSubRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Sub'
+        "400":
+          description: invalid request body or failed to create
+          schema:
+            type: string
+      summary: Create a new subscription
+      tags:
+      - subscriptions
+  /subs/delete:
+    delete:
+      description: Delete a subscription by ID
+      parameters:
+      - description: Subscription ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: missing id
+          schema:
+            type: string
+        "404":
+          description: subscription not found
+          schema:
+            type: string
+      summary: Delete a subscription
+      tags:
+      - subscriptions
+  /subs/getById:
+    get:
+      description: Retrieve a subscription using its ID
+      parameters:
+      - description: Subscription ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Sub'
+        "400":
+          description: missing or invalid id
+          schema:
+            type: string
+        "404":
+          description: subscription not found
+          schema:
+            type: string
+      summary: Get subscription by ID
+      tags:
+      - subscriptions
+  /subs/listAll:
+    get:
+      consumes:
+      - application/json
+      description: Get all subscriptions for a user or service
+      parameters:
+      - description: Filter by user_id or service_name
+        in: body
+        name: filter
+        schema:
+          $ref: '#/definitions/handlers.JSONSubRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Sub'
+            type: array
+        "400":
+          description: invalid request body
+          schema:
+            type: string
+        "500":
+          description: failed to list subscriptions
+          schema:
+            type: string
+      summary: List all subscriptions
+      tags:
+      - subscriptions
+  /subs/update:
+    put:
+      consumes:
+      - application/json
+      description: Update subscription details
+      parameters:
+      - description: Updated Subscription
+        in: body
+        name: sub
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.JSONSubRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Sub'
+        "400":
+          description: invalid request body or failed update
+          schema:
+            type: string
+      summary: Update a subscription
+      tags:
+      - subscriptions
+swagger: "2.0"
