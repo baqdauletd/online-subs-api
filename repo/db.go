@@ -7,14 +7,14 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 )
 
 func Connect() *gorm.DB {
-	err := godotenv.Load()
-    if err != nil {
-        log.Fatal("Error loading .env file")
-    }
+	// err := godotenv.Load()
+    // if err != nil {
+    //     log.Fatal("Error loading .env file")
+    // }
 
 	dsn := fmt.Sprintf(
 		"host=%v user=%v password=%v dbname=%v port=%v sslmode=disable",
