@@ -11,4 +11,5 @@ func Routes(mux *http.ServeMux, subsHandler *handlers.SubsHandler){
 	mux.HandleFunc("/subs/listAll", subsHandler.ListAllSubsHandler)
 	mux.HandleFunc("/subs/update", subsHandler.UpdateSubHandler)
 	mux.HandleFunc("/subs/delete", subsHandler.DeleteSubHandler)
+	mux.HandleFunc("/subs/total-cost", subsHandler.GetTotalCostHandler)
 }

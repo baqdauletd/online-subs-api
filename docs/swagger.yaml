@@ -146,6 +146,46 @@ paths:
       summary: List all subscriptions
       tags:
       - subscriptions
+  /subs/total-cost:
+    get:
+      consumes:
+      - application/json
+      description: Returns the total subscription cost in a given date range, optionally
+        filtered by user_id and service_name
+      parameters:
+      - description: Start date in YYYY-MM-DD format
+        in: query
+        name: start
+        required: true
+        type: string
+      - description: End date in YYYY-MM-DD format
+        in: query
+        name: end
+        required: true
+        type: string
+      - description: User ID (UUID format)
+        in: query
+        name: user_id
+        type: string
+      - description: Service name
+        in: query
+        name: service_name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Total cost response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid input
+          schema:
+            type: string
+      summary: Get total subscription cost
+      tags:
+      - subscriptions
   /subs/update:
     put:
       consumes:

@@ -193,3 +193,43 @@ func (h* SubsHandler) DeleteSubHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Printf("Sub Deleted successfully: id=%s", id)
 	w.WriteHeader(http.StatusNoContent)
 }
+
+
+// GetTotalCostHandler godoc
+// @Summary      Get total subscription cost
+// @Description  Returns the total subscription cost in a given date range, optionally filtered by user_id and service_name
+// @Tags         subscriptions
+// @Accept       json
+// @Produce      json
+// @Param        start        query     string  true   "Start date in YYYY-MM-DD format"
+// @Param        end          query     string  true   "End date in YYYY-MM-DD format"
+// @Param        user_id      query     string  false  "User ID (UUID format)"
+// @Param        service_name query     string  false  "Service name"
+// @Success      200  {object}  map[string]interface{} "Total cost response"
+// @Failure      400  {string}  string  "Invalid input"
+// @Router       /subs/total-cost [get]
+func (h* SubsHandler) GetTotalCostHandler(w http.ResponseWriter, r *http.Request){
+	start := r.URL.Query().Get("start")
+	end := r.URL.Query().Get("end")
+	userID := r.URL.Query().Get("user_id")
+	serviceName := r.URL.Query().Get("service_name")
+
+	totalCost, err := h.subsService.GetTotalCostService(start, end, userID, serviceName)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	resp := map[string]interface{}{
+		"total_cost": totalCost,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resp)
+}
+
+
+// POST /subscriptions
+// GET /subscriptions/{id}
+// GET /subscriptions?user_id=...&service_name=...
+// DELETE /subscriptions/{id}

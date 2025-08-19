@@ -141,3 +141,20 @@ func (s *SubsService) DeleteSubService(id string) error{
 	return s.subsRepo.DeleteSubRepo(id)
 }
 
+
+func (s *SubsService) GetTotalCostService(startStr, endStr, userID, serviceName string) (int, error) {
+	start, err := validDate(startStr)
+	if err != nil {
+		return 0, err
+	}
+	end, err := validDate(endStr)
+	if err != nil {
+		return 0, err
+	}
+
+	if userID != "" && !validateUUID(userID) {
+		return 0, errors.New("invalid user_id format")
+	}
+
+	return s.subsRepo.GetTotalCostRepo(start, end, userID, serviceName)
+}
