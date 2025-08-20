@@ -101,7 +101,6 @@ func (h *SubsHandler) GetSubHandlerByID(w http.ResponseWriter, r *http.Request){
 // @Tags subscriptions
 // @Accept json
 // @Produce json
-// @Param filter body JSONSubRequest false "Filter by user_id or service_name"
 // @Success 200 {array} models.Sub
 // @Failure 400 {string} string "invalid request body"
 // @Failure 500 {string} string "failed to list subscriptions"

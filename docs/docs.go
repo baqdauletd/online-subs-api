@@ -150,16 +150,6 @@ const docTemplate = `{
                     "subscriptions"
                 ],
                 "summary": "List all subscriptions",
-                "parameters": [
-                    {
-                        "description": "Filter by user_id or service_name",
-                        "name": "filter",
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/handlers.JSONSubRequest"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -348,6 +338,8 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API for managing subscriptions",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
+	// LeftDelim:        "{{",
+	// RightDelim:       "}}",
 }
 
 func init() {
