@@ -153,12 +153,14 @@ paths:
       description: Returns the total subscription cost in a given date range, optionally
         filtered by user_id and service_name
       parameters:
-      - description: Start date in YYYY-MM-DD format
+      - description: Start date in YYYY-MM-DD format (write - 01 for DD as it is set
+          like that in GORM by default) - like YYYY-MM-01
         in: query
         name: start
         required: true
         type: string
-      - description: End date in YYYY-MM-DD format
+      - description: End date in YYYY-MM-DD format (write - 01 for DD as it is set
+          like that in GORM by default) - like YYYY-MM-01
         in: query
         name: end
         required: true
@@ -192,6 +194,11 @@ paths:
       - application/json
       description: Update subscription details
       parameters:
+      - description: Subscription ID
+        in: query
+        name: id
+        required: true
+        type: string
       - description: Updated Subscription
         in: body
         name: sub

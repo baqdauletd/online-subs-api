@@ -29,16 +29,9 @@ func (r *SubsRepo) GetSubRepoById(id string) (*models.Sub, error){
 	return &sub, nil
 }
 
-func (r *SubsRepo) ListAllSubsRepo(userID, serviceName string) ([]models.Sub, error){
+func (r *SubsRepo) ListAllSubsRepo() ([]models.Sub, error){
 	var subs []models.Sub
 	query := r.db
-
-	if userID != ""{
-		query = query.Where("user_id=?", userID)
-	}
-	if serviceName != ""{
-		query = query.Where("service_name=?", serviceName)
-	}
 
 	if err := query.Find(&subs).Error; err != nil{
 		return nil, err

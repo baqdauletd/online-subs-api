@@ -89,12 +89,8 @@ func (s *SubsService) GetServiceByID(id string) (*models.Sub, error){
 	return s.subsRepo.GetSubRepoById(id)
 }
 
-func (s *SubsService) ListAllSubsService(userID, serviceName string) ([]models.Sub, error){
-	if userID != "" && !validateUUID(userID) {
-		utils.ErrorLogger.Println("Invalid user_id format:", userID)
-		return nil, errors.New("invalid user_id format")
-	}
-	return s.subsRepo.ListAllSubsRepo(userID, serviceName)
+func (s *SubsService) ListAllSubsService() ([]models.Sub, error){
+	return s.subsRepo.ListAllSubsRepo()
 }
 
 func (s *SubsService) UpdateSubService(sub *models.Sub, startDateStr, endDateStr string) error{
@@ -124,12 +120,12 @@ func (s *SubsService) UpdateSubService(sub *models.Sub, startDateStr, endDateStr
 		sub.EndDate = endDate
 	}
 
-	id, err := utils.NewUUID()
-	if err != nil {
-		utils.ErrorLogger.Println("Failed to generate UUID:", err)
-		return err
-	}
-	sub.ID = id
+	// id, err := utils.NewUUID()
+	// if err != nil {
+	// 	utils.ErrorLogger.Println("Failed to generate UUID:", err)
+	// 	return err
+	// }
+	// sub.ID = id
 	return s.subsRepo.UpdateSubRepo(sub)
 }
 
@@ -145,14 +141,17 @@ func (s *SubsService) DeleteSubService(id string) error{
 func (s *SubsService) GetTotalCostService(startStr, endStr, userID, serviceName string) (int, error) {
 	start, err := validDate(startStr)
 	if err != nil {
+		utils.ErrorLogger.Println("Invalid start date:", start, "error:", err)
 		return 0, err
 	}
 	end, err := validDate(endStr)
 	if err != nil {
+		utils.ErrorLogger.Println("Invalid end date:", end, "error:", err)
 		return 0, err
 	}
 
 	if userID != "" && !validateUUID(userID) {
+		utils.ErrorLogger.Println("Invalid usedID:", userID, "error:", err)
 		return 0, errors.New("invalid user_id format")
 	}
 

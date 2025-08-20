@@ -201,14 +201,14 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Start date in YYYY-MM-DD format",
+                        "description": "Start date in YYYY-MM-DD format (write - 01 for DD as it is set like that in GORM by default) - like YYYY-MM-01",
                         "name": "start",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "End date in YYYY-MM-DD format",
+                        "description": "End date in YYYY-MM-DD format (write - 01 for DD as it is set like that in GORM by default) - like YYYY-MM-01",
                         "name": "end",
                         "in": "query",
                         "required": true
@@ -257,6 +257,13 @@ const docTemplate = `{
                 ],
                 "summary": "Update a subscription",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Subscription ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
                     {
                         "description": "Updated Subscription",
                         "name": "sub",

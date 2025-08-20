@@ -108,14 +108,8 @@ func (h *SubsHandler) GetSubHandlerByID(w http.ResponseWriter, r *http.Request){
 // @Router /subs/listAll [get]
 func (h *SubsHandler) ListAllSubsHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("ListAllSubsHandler Called")
-	var req JSONSubRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		utils.ErrorLogger.Printf("Failed to decode request body: %v", err)
-		http.Error(w, "invalid request body", http.StatusBadRequest)
-		return
-	}
 
-	subs, err := h.subsService.ListAllSubsService(req.UserID, req.ServiceName)
+	subs, err := h.subsService.ListAllSubsService()
 	if err != nil{
 		utils.ErrorLogger.Printf("Failed to list subscriptions: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -134,6 +128,7 @@ func (h *SubsHandler) ListAllSubsHandler(w http.ResponseWriter, r *http.Request)
 // @Tags subscriptions
 // @Accept json
 // @Produce json
+// @Param id query string true "Subscription ID"
 // @Param sub body JSONSubRequest true "Updated Subscription"
 // @Success 200 {object} models.Sub
 // @Failure 400 {string} string "invalid request body or failed update"
@@ -141,6 +136,14 @@ func (h *SubsHandler) ListAllSubsHandler(w http.ResponseWriter, r *http.Request)
 func (h *SubsHandler) UpdateSubHandler(w http.ResponseWriter, r *http.Request){
 	utils.InfoLogger.Println("UpdateSubHandler Called")
 	var req JSONSubRequest
+
+	id := r.URL.Query().Get("id")
+	if id == ""{
+		utils.WarningLogger.Println("Missing id parameter in request")
+		http.Error(w, "missing id paramter", http.StatusBadRequest)
+		return
+	}
+
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		utils.ErrorLogger.Printf("Failed to decode request body: %v", err)
 		http.Error(w, "invalid request body", http.StatusBadRequest)
@@ -152,6 +155,7 @@ func (h *SubsHandler) UpdateSubHandler(w http.ResponseWriter, r *http.Request){
 		Price: req.Price,
 		UserID: req.UserID,
 	}
+	sub.ID = id
 
 	if err := h.subsService.UpdateSubService(sub, req.StartDate, req.EndDate); err != nil{
 		utils.ErrorLogger.Printf("Failed to update sub: %v", err)
@@ -201,8 +205,8 @@ func (h* SubsHandler) DeleteSubHandler(w http.ResponseWriter, r *http.Request){
 // @Tags         subscriptions
 // @Accept       json
 // @Produce      json
-// @Param        start        query     string  true   "Start date in YYYY-MM-DD format"
-// @Param        end          query     string  true   "End date in YYYY-MM-DD format"
+// @Param        start        query     string  true   "Start date in YYYY-MM-DD format (write - 01 for DD as it is set like that in GORM by default) - like YYYY-MM-01"
+// @Param        end          query     string  true   "End date in YYYY-MM-DD format (write - 01 for DD as it is set like that in GORM by default) - like YYYY-MM-01" 
 // @Param        user_id      query     string  false  "User ID (UUID format)"
 // @Param        service_name query     string  false  "Service name"
 // @Success      200  {object}  map[string]interface{} "Total cost response"
@@ -214,9 +218,16 @@ func (h* SubsHandler) GetTotalCostHandler(w http.ResponseWriter, r *http.Request
 	userID := r.URL.Query().Get("user_id")
 	serviceName := r.URL.Query().Get("service_name")
 
+	if start == "" || end == ""{
+		utils.WarningLogger.Println("Missing start/end parameter in request")
+		http.Error(w, "missing start/end paramter", http.StatusBadRequest)
+		return
+	}
+
 	totalCost, err := h.subsService.GetTotalCostService(start, end, userID, serviceName)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		utils.ErrorLogger.Printf("Failed to get the Total Cost: %v", err)
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
