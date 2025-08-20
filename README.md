@@ -63,6 +63,11 @@ cd online-subs-api
 ```bash
 go mod tidy
 ```
+Also install swaggo/swag package separately to generate/update swagger doc
+
+```bash
+go install gituhub.com/swaggo/swag/cmd/swag@latest
+```
 
 #### API Documentation using Swagger
 Swagger docs are available in the docs/ folder - used `swaggo/swag` package for them
@@ -71,6 +76,12 @@ To generate/update Swagger docs:
 swag init -g main.go
 ```
 
+in the latest version of swaggo there will be an error inside docs.go
+you will have to comment out the following for the swagger to work properly
+```go
+// LeftDelim:      "{{",
+// RightDelim:     "}}",
+```
 Once the app is running, Swagger UI is available at:
 
 ```bash
