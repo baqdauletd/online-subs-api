@@ -5,7 +5,7 @@ This project allows you to create and manage subscriptions (e.g., Netflix, Spoti
 
 ---
 
-## 🚀 Features
+## Features
 - Create new subscriptions
 - List all subscriptions
 - Retrieve subscription by ID
@@ -103,7 +103,7 @@ http://localhost:8080
 
 ---
 
-## 🔑 API Endpoints
+## API Endpoints
 
 ### Create Subscription
 
